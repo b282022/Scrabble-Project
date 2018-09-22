@@ -1,3 +1,4 @@
+import numpy as np
 from cross_checks import cross_checks
 from utility import common_letters, word_after_anchor, calculate_score, binary_search
 from utility import read_dictionary
@@ -48,15 +49,22 @@ def generate_move_row(board, row, rack, dictionary):
                         max_left_word = left_word
     return (max_anchor_position, max_left_word)
 
+
+def generate_move_for_all_rows(board, rack, dictionary):
+    print board
+    for row in range(len(board)):
+        print generate_move_row(board, row, rack, dictionary)
+
 if __name__ == '__main__':
     dictionary = read_dictionary()
-    board = [
+    board = np.array([
         ['-', '-', '-', '-', '-'],
         ['-', 'c', 'a', 'r', '-'],
         ['-', '-', '-', 'e', 't'],
         ['-', '-', '-', 's', '-'],
         ['-', '-', '-', 't', '-'],
-    ]
+    ])
     rack = ['i', 'm', 'a', 'b', 'c', 'r', 'f']
-    for row in range(len(board)):
-        print generate_move_row(board, row, rack, dictionary)
+    generate_move_for_all_rows(board, rack, dictionary)
+    board_transpose = np.transpose(board)
+    generate_move_for_all_rows(board_transpose, rack, dictionary)
