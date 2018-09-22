@@ -7,9 +7,12 @@ from itertools import permutations
 def generate_move_row(board, row, rack, dictionary):
     anchor_positions = get_anchor_positions(board, row)
     allowed_letters = cross_checks(board, row, dictionary) 
-    print allowed_letters
+    # print allowed_letters
     for i in range(len(allowed_letters)):
         allowed_letters[i] = common_letters(allowed_letters[i], rack)
+    if len(anchor_positions) == 0:
+        print "No anchors for", row
+        return (-1, '')
     max_anchor_position = anchor_positions[0] 
     max_left_word = ''
     max_score = -1
@@ -25,7 +28,7 @@ def generate_move_row(board, row, rack, dictionary):
                     break
             length = anchor - i + 1
             permutations_of_rack = list(permutations(rack, length))
-            print "Permutations of length", length, permutations_of_rack
+            # print "Permutations of length", length, permutations_of_rack
             for permutation in permutations_of_rack:
                 valid_permutation = True
                 for position in range(len(permutation) - 1, -1 , -1):
@@ -55,4 +58,5 @@ if __name__ == '__main__':
         ['-', '-', '-', 't', '-'],
     ]
     rack = ['i', 'm', 'a', 'b', 'c', 'r', 'f']
-    print generate_move_row(board, 2, rack, dictionary)
+    for row in range(len(board)):
+        print generate_move_row(board, row, rack, dictionary)
