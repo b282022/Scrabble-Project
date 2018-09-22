@@ -7,7 +7,6 @@ def cross_checks_below(board, row, dictionary):
         if board[row][col] != '-':
             continue
         word_below = find_word_below(board, row, col)
-        print col, board[row][col], word_below
         if word_below == '':
             valid_letters_below[col] = all_letters()
         else:
@@ -24,7 +23,6 @@ def cross_checks_above(board, row, dictionary):
         if board[row][col] != '-':
             continue
         word_above = find_word_above(board, row, col)
-        print col, board[row][col], word_above
         if word_above == '':
             valid_letters_above[col] = all_letters()
         else: 
