@@ -1,5 +1,5 @@
 def get_anchor_positions(board, row):
-    print "Anchor For:", board[row]
+    # print "Anchor For:", board[row]
     anchor_positions = []
     i = 0
     while i < len(board[row]):

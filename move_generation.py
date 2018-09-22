@@ -12,7 +12,7 @@ def generate_move_row(board, row, rack, dictionary):
     for i in range(len(allowed_letters)):
         allowed_letters[i] = common_letters(allowed_letters[i], rack)
     if len(anchor_positions) == 0:
-        print "No anchors for", row
+        print "No anchors for row:", row
         return (-1, '')
     max_anchor_position = anchor_positions[0] 
     max_left_word = ''
@@ -52,19 +52,44 @@ def generate_move_row(board, row, rack, dictionary):
 
 def generate_move_for_all_rows(board, rack, dictionary):
     print board
+    all_moves_rows = []
     for row in range(len(board)):
-        print generate_move_row(board, row, rack, dictionary)
+        best_move_for_row = generate_move_row(board, row, rack, dictionary)
+        all_moves_rows.append(best_move_for_row)
+        print "Best move for row", row, "is", best_move_for_row
+    return all_moves_rows
+
+
+def generate_all_moves(board, rack, dictionary):
+    all_moves = []
+    print "Moves for all the rows"
+    all_moves.append(generate_move_for_all_rows(board, rack, dictionary))
+    print "Moves for all the columns"
+    board_transpose = np.transpose(board)
+    all_moves.append(generate_move_for_all_rows(board_transpose, rack, dictionary))
+    return all_moves
+
 
 if __name__ == '__main__':
     dictionary = read_dictionary()
     board = np.array([
-        ['-', '-', '-', '-', '-'],
-        ['-', 'c', 'a', 'r', '-'],
-        ['-', '-', '-', 'e', 't'],
-        ['-', '-', '-', 's', '-'],
-        ['-', '-', '-', 't', '-'],
+        ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', 'd', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', 'i', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', 'c', 'a', 'r', 't', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', 't', '-', 'e', '', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', 'a', '-', 's', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', 't', '-', 't', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', 'o', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', 'r', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'], 
+        ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-']
     ])
     rack = ['i', 'm', 'a', 'b', 'c', 'r', 'f']
-    generate_move_for_all_rows(board, rack, dictionary)
-    board_transpose = np.transpose(board)
-    generate_move_for_all_rows(board_transpose, rack, dictionary)
+    all_moves = generate_all_moves(board, rack, dictionary)
+    # print best_move_for_row(all_moves[0])
+    # print best_move_for_col(all_moves[1])
