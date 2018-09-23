@@ -57,10 +57,35 @@ def word_after_anchor(board, row, anchor):
 
 
 def binary_search(dictionary, word):
-    # To be optimized further
-    if word not in dictionary:
-        return -1
-    return 0
+    low = 0
+    high = len(dictionary) - 1
+    while low <= high:
+        mid = (low + high) / 2
+        if dictionary[mid] == word:
+            return 0
+        if dictionary[mid] > word:
+            high = mid - 1
+        elif dictionary[mid] < word:
+            low = mid + 1
+    return -1
+
+def is_whole_permutation_valid(
+    left_word, existing_word, 
+    right_word, allowed_letters, 
+    anchor, dictionary):
+    left_length = len(left_word)
+    existing_word_length = len(existing_word)
+    right_length = len(right_word)
+    whole_word = left_word + existing_word + right_word
+    if binary_search(dictionary, whole_word) == -1:
+        return False
+    for i in range(len(left_word) - 1, -1, -1):
+        if left_word[i] not in allowed_letters[anchor - left_length + i + 1]:
+            return False
+    for i in range(0, right_length):
+        if right_word[i] not in allowed_letters[anchor + existing_word_length + i + 1]:
+            return False
+    return True
 
 if __name__ == '__main__':
     print read_dictionary()
