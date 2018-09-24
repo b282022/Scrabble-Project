@@ -102,7 +102,7 @@ if __name__ == '__main__':
         ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'], 
         ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-']
     ])
-    rack = ['w', 'e', 'c', 'l', 'o', 'm', 't']
+    rack = ['w', 'e', 'c', 'l', 'o', 'm', 's']
     all_moves = generate_all_moves(board, rack, dictionary)
     # print best_move_for_row(all_moves[0])
     # print best_move_for_col(all_moves[1])
