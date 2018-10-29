@@ -1,3 +1,4 @@
 *.pyc
 Temp/*
 frontend/node_modules/*
+.idea/*
